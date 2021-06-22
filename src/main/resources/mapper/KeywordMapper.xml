@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jarvish.dao.KeywordMapper">
+    <resultMap id="BaseResultMap" type="com.jarvish.pojo.Keyword">
+        <id column="id" property="id"/>
+        <result column="keyword" property="keyword"/>
+        <result column="fid" property="fid"/>
+        <result column="position" property="position"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,keyword,fid
+    </sql>
+
+
+    <insert id="add" parameterType="com.jarvish.pojo.Keyword" keyProperty="id" useGeneratedKeys="true">
+        insert into Keyword(keyword,fid,position) values(#{keyword},#{fid},#{position})
+    </insert>
+
+    <delete id="deleteByFid" parameterType="java.lang.Integer">
+        delete from Keyword where fid = #{fid}
+    </delete>
+
+    <select id="search" parameterType="string" resultType="java.lang.Integer">
+        select fid from keyword where keyword = #{value}
+    </select>
+
+    <select id="searchPositionByFidAndKeyword" resultType="java.lang.String">
+        select position from keyword where keyword = #{param1} and fid = #{param2}
+    </select>
+
+
+</mapper>
